@@ -21,4 +21,18 @@ class AccountAdmin(ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(ModelAdmin):
-    pass
+    list_display = [
+        "id",
+        "name",
+        "date",
+        "account",
+        "type",
+        "state",
+        "amount",
+        "category",
+        "description",
+    ]
+    list_display_links = [
+        "id",
+        "name",
+    ]

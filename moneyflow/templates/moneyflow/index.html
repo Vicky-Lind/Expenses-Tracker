@@ -1,0 +1,12 @@
+{% extends './navbar.html' %}
+{% block content %}
+
+<h1 class="text-3xl font-bold underline">Hello {{user}}!</h1>
+
+<ul>
+    {% for account in account %}
+    <li>{{account}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

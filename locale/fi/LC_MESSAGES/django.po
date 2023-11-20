@@ -1,0 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-20 13:57+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\expenses\settings.py:113
+msgid "Finnish"
+msgstr "Suomi"
+
+#: .\expenses\settings.py:114
+msgid "English"
+msgstr "Englanti"
+
+#: .\users\templates\registration\login.html:8
+msgid ""
+"\n"
+"    Your username and password didn't match. Please try again.\n"
+"    "
+msgstr ""
+
+#: .\users\templates\registration\login.html:17
+msgid ""
+"\n"
+"        Your account doesn't have access to this page. To proceed,\n"
+"    please login with an account that has access.\n"
+"        "
+msgstr ""
+
+#: .\users\templates\registration\login.html:24
+msgid ""
+"\n"
+"        Please login to see this page.\n"
+"        "
+msgstr ""
+
+#: .\users\templates\registration\login.html:50
+msgid ""
+"\n"
+"        Lost password?\n"
+"        "
+msgstr ""

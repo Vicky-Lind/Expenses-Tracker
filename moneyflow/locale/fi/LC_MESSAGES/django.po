@@ -1,0 +1,175 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-20 15:30+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: moneyflow/apps.py:8 moneyflow/templates/moneyflow/base.html:21
+msgid "Money Flows"
+msgstr "Rahavirrat"
+
+#: moneyflow/models.py:9
+msgid "created at"
+msgstr "luotu"
+
+#: moneyflow/models.py:20
+msgid "owner"
+msgstr "omistaja"
+
+#: moneyflow/models.py:30
+msgid "Bill"
+msgstr "Lasku"
+
+#: moneyflow/models.py:31
+msgid "Receipt"
+msgstr "Kuitti"
+
+#: moneyflow/models.py:32
+msgid "Calculation"
+msgstr "Laskelma"
+
+#: moneyflow/models.py:33
+msgid "Other"
+msgstr "Muu"
+
+#: moneyflow/models.py:38 moneyflow/models.py:127
+msgid "type"
+msgstr "tyyppi"
+
+#: moneyflow/models.py:43 moneyflow/models.py:61 moneyflow/models.py:92
+msgid "name"
+msgstr "nimi"
+
+#: moneyflow/models.py:47
+msgid "file"
+msgstr "tiedosto"
+
+#: moneyflow/models.py:51
+msgid "document"
+msgstr "dokumentti"
+
+#: moneyflow/models.py:52 moneyflow/models.py:158
+msgid "documents"
+msgstr "dokumentit"
+
+#: moneyflow/models.py:69
+msgid "parent category"
+msgstr "yläkategoria"
+
+#: moneyflow/models.py:73 moneyflow/models.py:152
+msgid "category"
+msgstr "kategoria"
+
+#: moneyflow/models.py:74
+msgid "categories"
+msgstr "kategoriat"
+
+#: moneyflow/models.py:98
+msgid "bank account"
+msgstr "pankkitili"
+
+#: moneyflow/models.py:102 moneyflow/models.py:122
+msgid "account"
+msgstr "tili"
+
+#: moneyflow/models.py:103
+msgid "accounts"
+msgstr "tilit"
+
+#: moneyflow/models.py:111
+msgid "Income"
+msgstr "Tulo"
+
+#: moneyflow/models.py:112
+msgid "Expense"
+msgstr "Meno"
+
+#: moneyflow/models.py:115
+msgid "Upcoming"
+msgstr "Tuleva"
+
+#: moneyflow/models.py:116
+msgid "Done"
+msgstr "Tapahtunut"
+
+#: moneyflow/models.py:132
+msgid "state"
+msgstr "tila"
+
+#: moneyflow/models.py:135
+msgid "date"
+msgstr "päiväys"
+
+#: moneyflow/models.py:140
+msgid "amount"
+msgstr "määrä"
+
+#: moneyflow/models.py:145
+msgid "comment"
+msgstr "kommentti"
+
+#: moneyflow/models.py:162
+msgid "transaction"
+msgstr "tilitapahtuma"
+
+#: moneyflow/models.py:163
+msgid "transactions"
+msgstr "tilitapahtumat"
+
+#: moneyflow/templates/moneyflow/account_detail.html:6
+msgid "Account"
+msgstr "Tili"
+
+#: moneyflow/templates/moneyflow/account_detail.html:8
+msgid "Transactions"
+msgstr "Tilitapahtumat"
+
+#: moneyflow/templates/moneyflow/account_detail.html:16
+msgid "No transactions"
+msgstr "Ei tilitapahtumia"
+
+#: moneyflow/templates/moneyflow/account_list.html:6
+#: moneyflow/templates/moneyflow/base.html:40
+msgid "Accounts"
+msgstr "Tilit"
+
+#: moneyflow/templates/moneyflow/base.html:4
+msgctxt "Language code for html lang attribute"
+msgid "en"
+msgstr "fi"
+
+#: moneyflow/templates/moneyflow/base.html:29
+msgid "Toggle navigation visibility"
+msgstr "Näytä tai piilota navigaatio"
+
+#: moneyflow/templates/moneyflow/base.html:47
+#: moneyflow/templates/moneyflow/document_list.html:6
+msgid "Documents"
+msgstr "Dokumentit"
+
+#: moneyflow/templates/moneyflow/base.html:52
+msgctxt "navigation"
+msgid "Administration"
+msgstr "Ylläpito"
+
+#: moneyflow/templates/moneyflow/base.html:61
+msgid "Log out"
+msgstr "Kirjaudu ulos"
+
+#: moneyflow/templates/moneyflow/index.html:6
+msgid "Welcome!"
+msgstr "Tervetuloa!"

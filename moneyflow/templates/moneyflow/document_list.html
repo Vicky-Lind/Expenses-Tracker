@@ -1,0 +1,14 @@
+{% extends "moneyflow/main.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{% translate "Documents" %}</h1>
+
+<ul>
+    {% for document in document_list %}
+    <li><a href="{% url 'document-detail' document.pk %}">{{document}}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

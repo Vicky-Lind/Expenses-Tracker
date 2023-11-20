@@ -1,0 +1,27 @@
+{% extends "moneyflow/main.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{% translate "Document" %} - {{ document }}</h1>
+
+<ul>
+    <li>
+        {{ document.name }}
+
+    </li>
+    <li>
+        {{ document.date }}
+    </li>
+    <li>
+        {{ document.owner}}
+    </li>
+    <li>
+        {{ document.type}}
+    </li>
+    {% if document.file %}
+    <img src="{{ document.file.url }}"/>
+    {% endif %}
+</ul>
+
+{% endblock %}

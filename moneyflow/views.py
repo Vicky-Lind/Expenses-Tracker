@@ -1,19 +1,15 @@
-from django.shortcuts import render
+from typing import Any
 from django.contrib.auth.decorators import login_required
+from django.db import models
 
-from .models import Account, Document
+from .models import Account, Document, Transaction, Category
 
-
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
 
 
 # @login_required
@@ -40,9 +36,13 @@ def dashboard(request):
     return render(request, "moneyflow/dashboard.html")
 
 
+# ------------------------------------#
 class OwnerFilteredMixin(LoginRequiredMixin):
     def get_queryset(self):
         return super().get_queryset().filter(owner=self.request.user)
+
+
+# ------------------------------------#
 
 
 class AccountsList(OwnerFilteredMixin, ListView):
@@ -58,8 +58,33 @@ class AccountDetail(OwnerFilteredMixin, DetailView):
         return context
 
 
-class TransactionsList(OwnerFilteredMixin, ListView):
-    pass
+# ------------------------------------#
+
+
+class TransactionsList(ListView):
+    model = Transaction
+
+    def get_queryset(self):
+        return super().get_queryset().filter(account__owner=self.request.user)
+
+
+class TransactionDetail(DetailView):
+    model = Transaction
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class TransactionCreate(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "moneyflow/transaction_create.html")
+
+    def post(self, request, *args, **kwargs):
+        return redirect("/transactions/")
+
+
+# ------------------------------------#
 
 
 class CategoriesList(OwnerFilteredMixin, ListView):

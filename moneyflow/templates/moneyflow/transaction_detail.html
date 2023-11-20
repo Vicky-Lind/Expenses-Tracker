@@ -1,0 +1,16 @@
+{% extends "moneyflow/main.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{% translate "Transaction" %} - {{ transaction }}</h1>
+
+<h2>{% translate "Transactions" %}</h2>
+
+<ul>
+    <li>
+        {{ transaction.id }} - {{ transaction.date }} - {{ transaction.amount }} - {{ transaction.description }} - {{ transaction.category }} - {{ transaction.account }} - {{ transaction.user }}
+    </li>
+</ul>
+
+{% endblock %}

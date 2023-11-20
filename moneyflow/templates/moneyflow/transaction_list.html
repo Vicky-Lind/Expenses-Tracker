@@ -1,0 +1,19 @@
+{% extends "moneyflow/main.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{% translate "Transaction" %}</h1>
+
+<!-- button to create a transaction -->
+<div>
+    <a href="{% url 'transaction-create' %}" class="btn btn-primary">{% translate "Create" %}</a>
+</div>
+
+<ul>
+    {% for transaction in transaction_list %}
+    <li><a href="{% url 'transaction-detail' transaction.pk %}">{{transaction}}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "moneyflow/main.html" %}
+{% load i18n %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>
+    {% blocktranslate %}
+    Your username and password didn't match. Please try again.
+    {% endblocktranslate %}
+</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>
+        {% blocktranslate %}
+        Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.
+        {% endblocktranslate %}
+    </p>
+    {% else %}
+    <p>
+        {% blocktranslate %}
+        Please login to see this page.
+        {% endblocktranslate %}
+    </p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+
+<input type="submit" value="login">
+<input type="hidden" name="next" value="{{ next }}">
+</form>
+
+<p>
+    <a href="{% url 'password_reset' %}">
+        {% blocktranslate %}
+        Lost password?
+        {% endblocktranslate %}
+    </a>
+</p>
+
+{% endblock %}

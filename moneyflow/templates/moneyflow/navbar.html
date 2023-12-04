@@ -31,9 +31,6 @@
       
         <div id="menu" class="hidden lg:flex mt-2 px-1 lg:mt-0 lg:px-6 lg:space-x-10 lg:space-x-20 justify-center content-center items-center grid grid-cols-2 lg:grid-cols-none justify-items-center items-center bg-gray-700 lg:bg-transparent rounded-xl">
           {% with url_name=request.resolver_match.url_name %}
-          <a href="{% url 'dashboard' %}" class="m-0 p-0 text-gray-300 hover:text-white {% if url_name == 'Dashboard' %}text-white{% endif %}">
-            Dashboard
-          </a>
           <a href="{% url 'accounts' %}" class="m-0 p-0 text-gray-300 hover:text-white {% if url_name == 'accounts' %}text-white{% endif %}">
             Accounts
           </a>
@@ -48,7 +45,7 @@
           </a>
 
           {% if user.is_authenticated %}
-          <a class="m-0 px-2 py-2 rounded-xl bg-blue-600 text-gray-300 hover:text-white">
+          <a class="m-0 px-2 py-1 rounded-xl bg-blue-600 text-gray-300 hover:text-white">
             <form method="post" action="{% url 'logout' %}">
               {% csrf_token %}
               <input
@@ -79,7 +76,7 @@
           });
         
           window.addEventListener('resize', function() {
-            if (window.innerWidth >= 1024) {
+            if (window.innerWidth >= 1324) {
               menu.classList.remove('block');
               menu.classList.add('hidden');
             }

@@ -1,6 +1,8 @@
 from typing import Any
 from django.contrib.auth.decorators import login_required
 from django.db import models
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 
 from .models import Account, Document, Transaction, Category
 
@@ -10,6 +12,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
+from django.views.generic.edit import CreateView
+
+from django.urls import reverse
 
 
 # @login_required
@@ -35,13 +40,16 @@ def frontpage(request):
 def dashboard(request):
     return render(request, "moneyflow/dashboard.html")
 
-
 # ------------------------------------#
 class OwnerFilteredMixin(LoginRequiredMixin):
     def get_queryset(self):
         return super().get_queryset().filter(owner=self.request.user)
 
-
+class OwnerAutoFillinCreateView(OwnerFilteredMixin, CreateView):
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
 # ------------------------------------#
 
 
@@ -76,21 +84,24 @@ class TransactionDetail(DetailView):
         return context
 
 
-class TransactionCreate(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, "moneyflow/transaction_create.html")
-
-    def post(self, request, *args, **kwargs):
-        return redirect("/transactions/")
-
+class TransactionCreate(OwnerAutoFillinCreateView):
+    model = Transaction
+    fields = ["account", "name", "description", "type", "category", "state", "date", "amount", "documents"]
 
 # ------------------------------------#
 
+class CategoryList(OwnerFilteredMixin, ListView):
+    model = Category
 
-class CategoriesList(OwnerFilteredMixin, ListView):
-    pass
 
+class CategoryDetail(OwnerFilteredMixin, DetailView):
+    model = Category
 
+class CategoryCreate(OwnerAutoFillinCreateView):
+    model = Category
+    fields = ["name", "parent"]
+    
+    
 class DocumentsList(OwnerFilteredMixin, ListView):
     model = Document
 
@@ -102,3 +113,7 @@ class DocumentDetail(OwnerFilteredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context["transactions"] = self.object.transactions.all()
         return context
+    
+def create_default_categories(request):
+    
+    return redirect(reverse("categories"))

@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 
 class TimestampModel(models.Model):
@@ -43,6 +44,7 @@ class Document(TimestampModel, OwnedModel):
 
 
 class Category(TimestampModel, OwnedModel):
+    
     name = models.CharField(max_length=100, verbose_name=_("name"))
 
     parent = models.ForeignKey(
@@ -70,6 +72,8 @@ class Category(TimestampModel, OwnedModel):
         prefix = f"{parent_str} / " if parent_str else ""
         return f"{prefix}{self.name}"
 
+    def get_absolute_url(self):
+        return reverse('category-detail', args=[str(self.id)])
 
 class Account(TimestampModel, OwnedModel):
     name = models.CharField(max_length=100, verbose_name=_("name"))
@@ -192,3 +196,6 @@ class Transaction(TimestampModel):
             if self.name
             else f"{self.date} {self.account} {self.amount} ({self.state})"
         )
+        
+    def get_absolute_url(self):
+        return reverse('transaction-detail', kwargs={"pk": self.pk})

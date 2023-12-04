@@ -2,7 +2,7 @@
 {% block content %}
 {% load i18n %}
 {% load static %}
-<div class="ml-0 w-[100vw] h-[92vh] bg-cover bg-no-repeat flex justify-center items-center" style="background-image: url({% static 'moneyflow/images/bg2.jpg' %});">
+<div class="ml-0 -mt-16 w-full h-screen bg-contain bg-no-repeat bg-center flex justify-center items-center" style="background-image: url({% static 'moneyflow/images/bg2.jpg' %}); background-size: 100% 100%;">
 
     {% comment %} <!-- hero section --> {% endcomment %}
     {% if user.is_authenticated %}
@@ -13,10 +13,6 @@
                 class="absolute transitiona-all duration-1000 -inset-px bg-gradient-to-r from-[#00A6FF] via-[#FF00E6] to-[#FF5F2F] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200
                 animate-tilt">
             </div>
-            <a href="{% url 'dashboard' %}" title="Go to dashboard"
-                class="relative inline-flex items-center justify-center px-8 py-4 font-semibold tracking-wide text-white transition duration-200 rounded-2xl shadow-md bg-gray-800 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
-                role="button">Go to dashboard
-            </a>
         </div>
     </div>
     {% else %}

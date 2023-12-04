@@ -1,0 +1,15 @@
+<!-- form to create a transaction -->
+{% extends 'moneyflow/main.html' %}
+{% load i18n %}
+
+{% block content %}
+
+<h2>{% translate 'Create a transaction' %}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="{% translate 'Create' %}"/>
+</form>
+
+{% endblock %}

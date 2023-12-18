@@ -43,7 +43,30 @@
           <a href="{% url 'documents' %}" class="m-0 p-0 text-gray-300 hover:text-white {% if url_name == 'documents' %}text-white{% endif %}">
             Documents
           </a>
+          {% get_current_language as LANGUAGE_CODE %}
+          {% get_available_languages as LANGUAGES %}
+          {% get_language_info_list for LANGUAGES as languages %}
 
+          <div class="relative inline-flex w-32">
+              <button class="bg-gray-800 rounded-md shadow-md px-3 py-2 w-full cursor-pointer text-gray-300 hover:text-white border-[1.7px] border-gray-300 hover:border-white" onclick="toggleDropdown()" data-bs-toggle="dropdown">
+                  {% translate 'Language' %}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="inline-block w-4 h-4 ml-2">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+              </button>
+              <div class="dropdown-content hidden absolute left-0 mt-12 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  {% for language in languages %}
+                  <form action="{% url 'set_language' %}" method="post">
+                      {% csrf_token %}
+                      <input name="language" type="hidden" value="{{ language.code }}">
+                      <button type="submit" class="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                          <img src="{% static '/moneyflow/icons/flags/'|add:language.code|add:'.png' %}" alt="" class="w-4 h-4 mr-2">
+                          {{ language.name_local }}
+                      </button>
+                  </form>
+                  {% endfor %}
+              </div>
+          </div>
           {% if user.is_authenticated %}
           <a class="m-0 px-2 py-1 rounded-xl bg-blue-600 text-gray-300 hover:text-white">
             <form method="post" action="{% url 'logout' %}">
@@ -67,6 +90,11 @@
       {% endblock %}
 
       <script>
+        function toggleDropdown() {
+          var dropdownContent = document.querySelector('.dropdown-content');
+          dropdownContent.classList.toggle('hidden');
+      }
+
           var menuButton = document.querySelector('#menuButton');
           var menu = document.querySelector('#menu');
         

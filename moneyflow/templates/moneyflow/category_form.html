@@ -3,12 +3,15 @@
 
 {% block content %}
 
-<h2>Create a category</h2>
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="{% translate 'Create' %}"/>
-</form>
+<div class="flex flex-col w-full h-screen px-20 py-14 bg-white">
+    
+    <form method="post">{% csrf_token %}
+        <h1 class="text-4xl text-[#3F4780] font-bold pb-20">
+            {% translate "Create New Category" %}
+        </h1>
+        {{ form.as_p }}
+        <input type="submit" value="{% translate 'Create' %}"/>
+    </form>
+</diV>
 
 {% endblock %}

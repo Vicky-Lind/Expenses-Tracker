@@ -17,8 +17,9 @@ urlpatterns = [
     path("categories/", views.CategoryList.as_view(), name="categories"),
     path("categories/<int:pk>/", views.CategoryDetail.as_view(), name="category-detail"),
     path("categories/create/", views.CategoryCreate.as_view(), name="category-create"),
+    path("category/delete/<int:pk>/", views.CategoryDelete.as_view(), name="category-delete"),
     
-    path("categories/create-defaults", views.create_default_categories, name="categories-create-defaults"),
+    path("categories/create-defaults", views.CreateDefaultCategoriesFormView.as_view(), name="categories-create-defaults"),
     
     path("documents/", views.DocumentsList.as_view(), name="documents"),
     path("documents/<int:pk>/", views.DocumentDetail.as_view(), name="document-detail"),

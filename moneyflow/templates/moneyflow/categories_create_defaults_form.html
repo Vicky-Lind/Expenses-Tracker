@@ -1,0 +1,21 @@
+{% extends "moneyflow/main.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h2>Create Default Categories</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <p>{% translate 'Are you sure you want to create the default categories?' %}
+
+    </p>
+
+    <input class="btn btn-primary" type="submit" value="{% translate 'Create' %}"/>
+    
+    <a href="{% url 'categories' %}" class="btn btn-secondary">{% translate 'Cancel' %}</a>
+</form>
+
+{% endblock %}

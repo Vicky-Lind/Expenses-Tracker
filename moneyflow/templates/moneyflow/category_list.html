@@ -3,16 +3,60 @@
 
 {% block content %}
 
-<h1>{% translate "Categories" %}</h1>
-
-<div>
-    <a href="{% url 'category-create' %}" class="">{% translate "Create" %}</a>
-    <a href="{% url 'categories-create-defaults' %}" class="">{% translate "Create defaults" %}
+{% load static %}
+<div class="flex flex-col w-full h-screen px-20 py-14">
+    
+    <h1 class="text-4xl text-[#3F4780] font-bold">
+        {% translate "Categories" %}
+    </h1>
+    <h1 class="py-2">
+        Here you can see all the categories you have created,<br>modify, delete, or create new ones.
+    </h1>
+    
+    <div class="pt-20 pb-2 flex justify-end">
+        <a href="{% url 'category-create' %}" class="bg-[#4756C2] py-2 px-3 rounded-3xl text-white border-2">
+            <h1 class="">+ {% translate "Create New" %}</h1>
+        </a>
+        <a href="{% url 'categories-create-defaults' %}" class="ml-4 bg-white border-2 py-2 px-3 rounded-3xl">
+            <h1 class="">{% translate "Create defaults" %}</h1>
+        </a>
+    </div>
+        
+    <div class="pb-20 flex flex-col justify-center items-center">
+        <!-- Table to show all the categories -->
+        <table class="w-full text-left bg-white rounded-3xl overflow-hidden">
+            <!-- Headers -->
+            <thead class="bg-[#D1D3FF] text-[#3F4780] font-semibold">
+                <tr>
+                    <th class="pl-6 py-2">{% translate "Name" %}</th>
+                    <th class="pl-20">{% translate "Full Path" %}</th>
+                    <th class="pl-20">{% translate "Owner" %}</th>
+                    <th class="pl-20">{% translate "Actions" %}</th>
+                </tr>
+            </thead>
+            <!-- Rows -->
+            <tbody>
+                {% for category in category_list %}
+                <tr class="border-b-2 text-gray-600 font-semibold">
+                    <td class="pl-6 py-2"><a href="{% url 'category-detail' category.pk %}">{{category.name}}</a></td>
+                    <td class="pl-20">{{category}}</td>
+                    <td class="pl-20">{{category.owner}}</td>
+                    <td class="pl-20 flex  pt-2">
+                        <a href="{% url 'category-detail' category.pk %}">
+                            <img class="bg-gray-200 rounded-full w-6 h-6 p-1" src="{% static 'moneyflow/icons/magnifying-glass.png' %}" alt="">
+                        </a>
+                        <a href="{% url 'category-detail' category.pk %}">
+                            <img class="bg-green-200 rounded-full w-6 h-6 p-1" src="{% static 'moneyflow/icons/edit.png' %}" alt="">
+                        </a>
+                        <a href="{% url 'category-delete' category.pk %}">
+                            <img class="bg-red-200 rounded-full w-6 h-6 p-1" src="{% static 'moneyflow/icons/delete.png' %}" alt="">
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
-<ul>
-    {% for category in category_list %}
-    <li><a href="{% url 'category-detail' category.pk %}">{{category}}</a></li>
-    {% endfor %}
-</ul>
 
 {% endblock %}

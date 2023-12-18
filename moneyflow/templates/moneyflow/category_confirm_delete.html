@@ -1,0 +1,23 @@
+{% extends "moneyflow/main.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="flex flex-col w-full h-screen px-20 py-14 bg-[#FFF5F5]">
+    
+    <form method="post">{% csrf_token %}
+        <h1 class="text-4xl text-[#803D3D] font-bold">
+            {% translate "Delete " %}{{ category }}
+        </h1>
+        <h1 class="py-2">
+            {% blocktrans %}
+            Are you sure you want to delete the category "{{ category }}"?</br>
+            This will delete that category, as well as all categories & transactions associated with it.
+            {% endblocktrans %}
+        </h1>
+        {{ form }}
+        <input class="mt-20 bg-red-600 py-2 px-3 rounded-3xl text-white" type="submit" value="Confirm">
+        <a href="{% url 'categories' %}" class="bg-gray-300 py-2 px-3 rounded-3xl">{% translate 'Cancel' %}</a>
+    </form>
+</div>
+{% endblock %}

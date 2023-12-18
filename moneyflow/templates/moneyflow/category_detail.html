@@ -3,6 +3,54 @@
 
 {% block content %}
 
-<h1>{% translate "Category" %} / {{ category }}</h1>
+<div class="flex flex-col w-full h-screen px-20 py-14">
+    
+    <!-- Header -->
+    <div class="flex">
+        <!-- Title -->
+        <h1 class="text-4xl text-[#3F4780] font-bold">
+            {% translate "Category" %} / {{ category.name }}
+        </h1>
 
+        <!-- Buttons -->
+        <div class="pl-20 flex items-center">
+            <!-- Edit -->
+            <div>
+                <a href="{% url 'category-delete' category.pk %}" class="bg-green-600 py-2 px-3 rounded-3xl text-white">
+                    Edit
+                </a>
+            </div>
+
+            <!-- Delete -->
+            <div class="p-2">
+                <a href="{% url 'category-delete' category.pk %}" class="bg-red-600 py-2 px-3 rounded-3xl text-white">
+                    {% translate 'Delete' %}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div>
+        {{ category }}
+    </div>
+
+    <div>
+        <div class="flex pt-12">
+            <h1 class="text-lg pr-2 text-[#3F4780] font-bold">Owner:</h1>
+            <h1 class="text-lg">{{ category.owner }}</h1>
+        </div>
+        <div class="flex">
+            <h1 class="text-lg pr-2 text-[#3F4780] font-bold">ID:</h1>
+            <h1 class="text-lg">{{ category.id }}</h1>
+        </div>
+    </div>
+
+    <!-- Back -->
+    <div class="pt-12">
+        <a href="{% url 'categories' %}" class="bg-gray-300 py-2 px-3 rounded-3xl">
+            ← Back 
+        </a>
+    </div>
+</div>
 {% endblock %}

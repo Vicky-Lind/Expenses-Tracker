@@ -7,14 +7,17 @@ from django.http import HttpResponse
 from .models import Account, Document, Transaction, Category
 
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView, View, FormView
+from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.views.generic.edit import CreateView
 
-from django.urls import reverse
+from django.urls import reverse_lazy, reverse
+from django import forms
+from django.utils.translation import gettext_lazy as _
 
 
 # @login_required
@@ -101,6 +104,10 @@ class CategoryCreate(OwnerAutoFillinCreateView):
     model = Category
     fields = ["name", "parent"]
     
+class CategoryDelete(OwnerFilteredMixin, DeleteView):
+    model = Category
+    success_url = reverse_lazy("categories")
+    
     
 class DocumentsList(OwnerFilteredMixin, ListView):
     model = Document
@@ -114,6 +121,15 @@ class DocumentDetail(OwnerFilteredMixin, DetailView):
         context["transactions"] = self.object.transactions.all()
         return context
     
-def create_default_categories(request):
     
-    return redirect(reverse("categories"))
+class CreateDefaultCategoriesForm(forms.Form):
+    pass
+    
+class CreateDefaultCategoriesFormView(FormView):
+    form_class = CreateDefaultCategoriesForm
+    template_name = "moneyflow/categories_create_defaults_form.html"
+    success_url = reverse_lazy("categories")
+
+    def form_valid(self, form):
+        Category.create_defaults(owner=self.request.user)
+        return super().form_valid(form)

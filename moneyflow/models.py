@@ -1,8 +1,9 @@
 from django.conf import settings
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, pgettext_lazy
 from django.urls import reverse
 
+#___________________________________#
 
 class TimestampModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
@@ -10,6 +11,7 @@ class TimestampModel(models.Model):
     class Meta:
         abstract = True
 
+#___________________________________#
 
 class OwnedModel(models.Model):
     owner = models.ForeignKey(
@@ -21,6 +23,7 @@ class OwnedModel(models.Model):
     class Meta:
         abstract = True
 
+#___________________________________#
 
 class Document(TimestampModel, OwnedModel):
     class Type(models.TextChoices):
@@ -35,6 +38,7 @@ class Document(TimestampModel, OwnedModel):
 
     file = models.FileField(upload_to="docs/%Y-%m-%d/", verbose_name=_("file"))
 
+#------------------------------------#
     class Meta:
         verbose_name = _("document")
         verbose_name_plural = _("documents")
@@ -42,6 +46,7 @@ class Document(TimestampModel, OwnedModel):
     def __str__(self):
         return self.name if self.name else f"Document {self.id}"
 
+#___________________________________#
 
 class Category(TimestampModel, OwnedModel):
     
@@ -55,6 +60,8 @@ class Category(TimestampModel, OwnedModel):
         on_delete=models.CASCADE,
         verbose_name=_("parent category"),
     )
+
+#------------------------------------#
 
     class Meta:
         verbose_name = _("category")
@@ -74,6 +81,46 @@ class Category(TimestampModel, OwnedModel):
 
     def get_absolute_url(self):
         return reverse('category-detail', args=[str(self.id)])
+    
+#------------------------------------#
+    
+    defaults = [  # Default Categories
+        # key, parent_key, name
+        ("exp", None, _("Expenses")),
+        
+        ("living", "exp", _("Living costs")),
+        
+        ("housing", "living", _("Housing")),
+        ("utilities", "housing", _("Utilities")),
+        ("internet", "utilities", _("Internet")),
+        ("devices", "utilities", _("Devices")),
+        
+        ("food", "living", _("Food")),
+        ("toiletries", "living", _("Toiletries")),
+        
+        ("health", "exp", _("Health care")),
+        
+        ("vehicles", "exp", _("Vehicles")),
+        ("transport", "exp", _("Transport")),
+        ("travel", "exp", _("Travel")),
+        
+        ("income", None, pgettext_lazy("category name", "Income")),
+        ("salary", "income", _("Salary")),
+    ]
+
+    @classmethod
+    def create_defaults(cls, owner):
+        key_to_id = {}
+        for key, parent_key, name in cls.defaults:
+            parent_id = key_to_id[parent_key] if parent_key else None
+            category = cls.objects.update_or_create(
+                name=name,
+                owner=owner,
+                parent_id=parent_id,
+            )[0]
+            key_to_id[key] = category.id
+
+#___________________________________#
 
 class Account(TimestampModel, OwnedModel):
     name = models.CharField(max_length=100, verbose_name=_("name"))
@@ -85,6 +132,8 @@ class Account(TimestampModel, OwnedModel):
         verbose_name=_("bank account"),
     )
 
+#------------------------------------#
+
     class Meta:
         verbose_name = _("account")
         verbose_name_plural = _("accounts")
@@ -92,6 +141,7 @@ class Account(TimestampModel, OwnedModel):
     def __str__(self):
         return f"{self.id:04d} {self.name}"
 
+#___________________________________#
 
 class Transaction(TimestampModel):
     class Type(models.TextChoices):
@@ -103,18 +153,6 @@ class Transaction(TimestampModel):
         DONE = ("DONE", _("Done"))
         CANCELED = ("CANCELED", _("Canceled"))
         MISSED = ("MISSED", _("Missed"))
-
-    # class Category2(models.TextChoices):
-    #     Car = ("Car", _("Auto"))
-    #     Food = ("Food", _("Ruoka"))
-    #     Home = ("Home", _("Koti"))
-    #     Salary = ("Salary", _("Palkka"))
-    #     Savings = ("Savings", _("Säästöt"))
-    #     Shopping = ("Shopping", _("Shoppailu"))
-    #     Transport = ("Transport", _("Liikenne"))
-    #     Travel = ("Travel", _("Matkustus"))
-    #     Utilities = ("Utilities", _("Laskut"))
-    #     Other = ("Other", _("Muu"))
 
     account = models.ForeignKey(
         Account,
@@ -150,14 +188,6 @@ class Transaction(TimestampModel):
         verbose_name=_("category"),
     )
 
-    # category2 = models.CharField(
-    #     max_length=20,
-    #     choices=Category2.choices,
-    #     verbose_name=_("kategoria"),
-    #     null=True,
-    #     blank=True,
-    # )
-
     state = models.CharField(
         max_length=20,
         choices=State.choices,
@@ -185,6 +215,8 @@ class Transaction(TimestampModel):
         blank=True,
         verbose_name=_("documents"),
     )
+    
+#------------------------------------#
 
     class Meta:
         verbose_name = _("transaction")
@@ -199,3 +231,5 @@ class Transaction(TimestampModel):
         
     def get_absolute_url(self):
         return reverse('transaction-detail', kwargs={"pk": self.pk})
+
+#___________________________________#

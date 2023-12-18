@@ -11,7 +11,12 @@ class DocumentAdmin(ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(ModelAdmin):
-    pass
+    list_display = [
+        "id",
+        "__str__",
+        "created_at",
+    ]
+    list_display_links = list_display
 
 
 @admin.register(Account)
